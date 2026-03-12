@@ -1,0 +1,463 @@
+<style>
+    /* -------------------------------------------------------
+   DEFAULT: Desktop/tablet table behavior
+   ------------------------------------------------------- */
+
+/* Desktop tbody behaves like a real table */
+.pricingModal table tbody.desktop {
+    display: table-row-group;
+}
+
+/* Mobile tbody hidden by default */
+.pricingModal table tbody.mobile {
+    display: none;
+}
+
+/* Modal layout */
+.pricingModal {
+    display: block;
+    overflow-y: hidden;
+}
+
+.pricingModal .modal__content {
+    padding: 0;
+    overflow: hidden;
+}
+
+.pricingModal .modal__content .sticky-top {
+    width: 100%;
+    padding: 20px 58px 5px 20px;
+}
+
+.pricingModal .modal__content .scroll-middle {
+    margin-bottom: 100px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.pricingModal .modal__content .sticky-bottom {
+    padding: 0 20px 20px;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+}
+
+/* Desktop table column behavior */
+.pricingModal table.table-basic td.select-cell {
+    text-align: center;
+    vertical-align: top;
+}
+
+.pricingModal table.table-basic td.version-cell .version-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.pricingModal table.table-basic td.select-cell input[type="radio"] {
+    margin-top: 5px;
+}
+
+.pricingModal table.table-basic td.member-price,
+.pricingModal table.table-basic td:nth-child(3),
+.pricingModal table.table-basic td:nth-child(4) {
+    text-align: right;
+    vertical-align: top;
+}
+
+.pricingModal table.table-basic td.member-price {
+    font-weight: 700;
+}
+
+/* Divider row */
+.pricingModal table.table-basic tbody tr.divider td {
+    background: #155897;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+/* Layout resets */
+.pricingModal .container-fluid,
+.pricingModal .row,
+.pricingModal > .modal__content .container-fluid > .row {
+    padding: 0;
+    margin: 0;
+}
+
+.pricingModal .sidebar-component__button {
+    display: block;
+    margin: 2rem auto 0;
+    text-align: center;
+}
+
+.pricingModal table.table-basic {
+    width: 100%;
+}
+
+.pricingModal .table-scroll {
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+/* Sticky table header */
+.pricingModal table.table-basic thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #4E5665;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+    .pricingModal .modal__content .sticky-top {
+        padding: 20px 58px 5px 20px;
+    }
+
+    .pricingModal .modal__content .scroll-middle {
+        margin-bottom: 100px;
+        max-height: 80vh;
+    }
+
+    .pricingModal .modal__content .sticky-bottom {
+        padding: 0 20px 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    .pricingModal .modal__content {
+        width: auto !important;
+        max-width: none !important;
+        max-height: 100% !important;
+    }
+}
+
+/* -------------------------------------------------------
+   MOBILE: Show mobile tbody + flex layout
+   ------------------------------------------------------- */
+@media (max-width: 500px) {
+
+    /* Swap table bodies */
+    .pricingModal table tbody.desktop {
+        display: none;
+    }
+
+    .pricingModal table tbody.mobile {
+        display: table-row-group;
+    }
+
+    /* Hide table header */
+    .pricingModal table.table-basic thead {
+        display: none;
+    }
+
+    /* Mobile rows become flex */
+    .pricingModal table tbody.mobile tr {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        border-bottom: 1px solid #ddd;
+        padding: 0.75rem 0;
+    }
+
+    /* Mobile cells */
+    .pricingModal table tbody.mobile td {
+        padding: 0;
+        border: none;
+    }
+
+    /* Left column: radio */
+    .pricingModal table tbody.mobile td.select-cell {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .pricingModal table tbody.mobile td.select-cell::before {
+        content: none !important;
+    }
+
+    /* Right column: stacked content */
+    .pricingModal table tbody.mobile td.details-cell {
+        flex: 1 1 auto;
+    }
+
+    /* .pricingModal table tbody.mobile td.details-cell > * {
+        margin-bottom: 0.35rem;
+    } */
+
+    .pricingModal table tbody.mobile td.details-cell > div {
+        display: flex;
+        margin: 0;
+    }
+
+    .pricingModal table tbody.mobile td.details-cell div span:first-of-type {
+        padding: 5px;
+        background: #ccc;
+        min-width: 110px;
+    }
+
+    .pricingModal table tbody.mobile td.details-cell > div .version-wrap {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Labels above values */
+    .pricingModal table tbody.mobile td.details-cell [data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 2px;
+    }
+
+    /* Price alignment */
+    /* .pricingModal table tbody.mobile .price-row {
+        text-align: right;
+    } */
+
+    /* Divider row */
+    /* .pricingModal table tbody.mobile tr.divider {
+        display: block;
+    } */
+
+    .pricingModal table tbody.mobile tr.divider td {
+        /* display: block;
+        padding: 0.75rem 0;
+    } */
+}
+
+</style>
+
+<section class="modal pricingModal" data-modal="pricingModal">
+    <div class="modal__shade d-none d-lg-block"></div>
+    <div class="modal__content">
+        <div class="sticky-top">
+            <div class="modal__content__close"><img src="img/icons/close.svg"></div>
+            <h2 class="section-title">Please choose a version of <span>[Product Name]</span></h2>
+        </div>
+        <div class="scroll-middle">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-scroll">
+                            <form class="needs-validation was-validated">
+                                <table class="table-basic">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Version</th>
+                                            <th>Member</th>
+                                            <th>Non Member</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="mobile">
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="printed">
+                                            </td>
+                                            <td class="details-cell" colspan="3">
+                                                <div class="version-block">
+                                                    <span class="version-label">Version</span>
+                                                    <div class="version-wrap">
+                                                        <span>Printed Textbook</span>
+                                                        <span class="desc"></span>
+                                                        <span class="disclaimer">
+                                                            <span>Disclaimer:</span> This is some disclaimer text. Lorem
+                                                            ipsum dolor sit amet,
+                                                            consectetur adipiscing elit. Mauris luctus vel odio at
+                                                            convallis.
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="price-row member-price">
+                                                    <span class="member-label">Member</span>
+                                                    <span>$105</span>
+                                                </div>
+
+                                                <div class="price-row non-member-price">
+                                                    <span class="nonMember-label">Non Member</span>
+                                                    <span>$145</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="desktop">
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="printed">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>Printed Textbook</span>
+                                                    <span class="desc"></span>
+                                                    <span class="disclaimer">
+                                                        <span>Disclaimer:</span> This is some disclaimer text. Lorem
+                                                        ipsum dolor sit amet,
+                                                        consectetur adipiscing elit. Mauris luctus vel odio at
+                                                        convallis.
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$105</td>
+                                            <td data-label="Non Member">$145</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="ebook">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>eBook</span>
+                                                    <span class="desc">
+                                                        All eBooks sales are final and not shareable. When you order
+                                                        your eBook, you will
+                                                        receive a confirmation email on how to access the book
+                                                        immediately.
+                                                    </span>
+                                                    <span class="disclaimer">
+                                                        <span>Disclaimer:</span> Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing elit.
+                                                        Mauris luctus vel odio at convallis.
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$105</td>
+                                            <td data-label="Non Member">$145</td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="4">Bundle Deals</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="bundle1">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>2026 Feb AFS w Printed Book</span>
+                                                    <span class="desc">
+                                                        Buy this printed textbook bundled with the February 2026
+                                                        facilitated training course
+                                                        on this topic.
+                                                    </span>
+                                                    <span class="disclaimer"></span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$650</td>
+                                            <td data-label="Non Member">$770</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="bundle2">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>2026 Feb AFS w Printed Book</span>
+                                                    <span class="desc">
+                                                        Buy this printed textbook bundled with the February 2026
+                                                        facilitated training course
+                                                        on this topic.
+                                                    </span>
+                                                    <span class="disclaimer"></span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$650</td>
+                                            <td data-label="Non Member">$770</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="bundle3">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>2026 Feb AFS w Printed Book</span>
+                                                    <span class="desc">
+                                                        Buy this printed textbook bundled with the February 2026
+                                                        facilitated training course
+                                                        on this topic.
+                                                    </span>
+                                                    <span class="disclaimer"></span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$650</td>
+                                            <td data-label="Non Member">$770</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="bundle4">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>2026 Feb AFS w Printed Book</span>
+                                                    <span class="desc">
+                                                        Buy this printed textbook bundled with the February 2026
+                                                        facilitated training course
+                                                        on this topic.
+                                                    </span>
+                                                    <span class="disclaimer"></span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$650</td>
+                                            <td data-label="Non Member">$770</td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="4"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="select-cell">
+                                                <input type="radio" name="productVersion" value="instructional">
+                                            </td>
+                                            <td data-label="Version" class="version-cell">
+                                                <div class="version-wrap">
+                                                    <span>Instructional Book</span>
+                                                    <span class="desc"></span>
+                                                    <span class="disclaimer"></span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Member" class="member-price">$300</td>
+                                            <td data-label="Non Member">$450</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sticky-bottom">
+            <!-- TODO -->
+            <!-- Should this be a button instead for accesibility ? -->
+            <a class="sidebar-component__button btn btn-primary"
+                data-goal=""
+                href="">
+                <span>
+                    Add to Cart
+                </span>
+            </a>
+        </div>
+    </div>
+
+</section>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary modal-open-trigger" data-modal-trigger="pricingModal">Select a
+                version</button>
+        </div>
+    </div>
+</div>
