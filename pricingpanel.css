@@ -185,6 +185,11 @@
     padding: 0;
   }
 
+  .pricingModal table tbody.mobile tr.divider td {
+    width: 100%;
+    padding: 10px 11px;
+  }
+
   /* Mobile cells */
   .pricingModal table tbody.mobile td {
     padding: 0;
