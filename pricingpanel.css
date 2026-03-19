@@ -1,0 +1,259 @@
+/* -------------------------------------------------------
+   DEFAULT: Desktop/tablet table behavior
+   ------------------------------------------------------- */
+
+/* for development */
+.pricingModal .modal {
+  display: block; !important;
+}
+
+/* Desktop tbody behaves like a real table */
+.pricingModal table tbody.desktop {
+  display: table-row-group;
+}
+
+/* Mobile tbody hidden by default */
+.pricingModal table tbody.mobile {
+  display: none;
+}
+
+/* Modal layout */
+.pricingModal {
+  display: block;
+  overflow-y: hidden;
+}
+
+  .pricingModal .modal__content {
+    padding: 0;
+    overflow: hidden;
+  }
+
+    .pricingModal .modal__content .sticky-top {
+      width: 100%;
+      padding: 20px 58px 5px 20px;
+    }
+
+    .pricingModal .modal__content .scroll-middle {
+      margin-bottom: 100px;
+      overflow-y: auto;
+      max-height: 77vh;
+    }
+
+    .pricingModal .modal__content .sticky-bottom {
+      padding: 10px 20px 20px 20px;
+      position: absolute;
+      width: 100%;
+      background-color: white;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      height: 120px;
+    }
+
+    .pricingModal .modal__content .sticky-bottom span.error-text {
+      display: block;
+      text-align: center;
+      margin-bottom: 10px;
+        font-weight: 600;
+      color: red;
+    }
+
+  /* Desktop table column behavior */
+  .pricingModal table.table-basic td.select-cell {
+    text-align: center;
+    vertical-align: top;
+  }
+
+  .pricingModal table.table-basic td.version-cell .version-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+.pricingModal table.table-basic td.version-cell .version-wrap > span {
+  margin-bottom: 5px;
+}
+
+    .pricingModal table.table-basic td.version-cell .version-wrap span.disclaimer span {
+      font-weight: 600;
+    }
+
+  .pricingModal table.table-basic td.select-cell input[type="radio"] {
+    margin-top: 5px;
+  }
+
+  .pricingModal table.table-basic td.member-price,
+  .pricingModal table.table-basic td:nth-child(3),
+  .pricingModal table.table-basic td:nth-child(4) {
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .pricingModal table.table-basic td.member-price {
+    font-weight: 700;
+  }
+
+  /* Divider row */
+  .pricingModal table.table-basic tbody tr.divider td {
+    background: #155897;
+    color: white;
+    font-weight: 600;
+    border: none;
+  }
+
+  /* Layout resets */
+  .pricingModal .container-fluid,
+  .pricingModal .row,
+  .pricingModal > .modal__content .container-fluid > .row {
+    padding: 0;
+    margin: 0;
+  }
+
+  .pricingModal .sidebar-component__button {
+    display: block;
+    margin: 0 auto 0;
+    text-align: center;
+  }
+
+  .pricingModal table.table-basic {
+    width: 100%;
+  }
+
+  .pricingModal .table-scroll {
+    overflow-y: auto;
+    max-height: 100%;
+  }
+
+  /* Sticky table header */
+  .pricingModal table.table-basic thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #4E5665;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    padding: 11px;
+  }
+
+/* Larger screens */
+@media (min-width: 768px) {
+  .pricingModal .modal__content .sticky-top {
+    padding: 20px 58px 5px 20px;
+  }
+
+  .pricingModal .modal__content .scroll-middle {
+    margin-bottom: 100px;
+    max-height: 77vh;
+  }
+
+  .pricingModal .modal__content .sticky-bottom {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pricingModal .modal__content {
+    width: auto !important;
+    max-width: none !important;
+    max-height: 100% !important;
+  }
+}
+
+/* -------------------------------------------------------
+   MOBILE: Show mobile tbody + flex layout
+   ------------------------------------------------------- */
+@media (max-width: 500px) {
+
+  /* Swap table bodies */
+  .pricingModal table tbody.desktop {
+    display: none;
+  }
+
+  .pricingModal table tbody.mobile {
+    display: table-row-group;
+  }
+
+  /* Hide table header */
+  .pricingModal table.table-basic thead {
+    display: none;
+  }
+
+  /* Mobile rows become flex */
+  .pricingModal table tbody.mobile tr {
+    display: flex;
+    align-items: flex-start;
+    /*gap: 1rem;*/
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+  }
+
+  /* Mobile cells */
+  .pricingModal table tbody.mobile td {
+    padding: 0;
+    border: none;
+  }
+
+    /* Left column: radio */
+    .pricingModal table tbody.mobile td.select-cell {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-start;
+      background: #D3D3D3;
+      height: stretch;
+    }
+
+      .pricingModal table tbody.mobile td.select-cell::before {
+        content: none !important;
+      }
+
+    /* Right column: stacked content */
+    .pricingModal table tbody.mobile td.details-cell {
+      flex: 1 1 auto;
+    }
+
+      .pricingModal table tbody.mobile td.details-cell > div {
+        display: flex;
+        margin: 0;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell div span.version-label,
+      .pricingModal table tbody.mobile td.details-cell div span.member-label,
+      .pricingModal table tbody.mobile td.details-cell div span.nonMember-label {
+        padding: 5px;
+        background: #D3D3D3;
+        min-width: 110px;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell > div .version-wrap {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell > div .version-wrap > span {
+        margin-bottom: 10px;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell > div .version-wrap span.disclaimer span {
+        font-weight: 600;
+      }
+
+      /* Labels above values */
+      .pricingModal table tbody.mobile td.details-cell [data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 2px;
+      }
+
+      .pricingModal table.table-basic td.select-cell input[type="radio"] {
+          margin: 8px 2px 8px 8px;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell div.price-row span.price {
+        padding: 5px;
+      }
+  
+      .pricingModal table tbody.mobile td.details-cell div.member-price span.price {
+        font-weight: bold;
+      }
+}
