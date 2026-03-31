@@ -3,8 +3,17 @@
    ------------------------------------------------------- */
 
 /* for development */
-.pricingModal .modal {
-  display: block; !important;
+/* .pricingModal .modal {
+  display: block !important;
+} */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal.pricingModal {
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 /* Desktop tbody behaves like a real table */
@@ -50,13 +59,13 @@
       height: 120px;
     }
 
-    .pricingModal .modal__content .sticky-bottom span.error-text {
-      display: block;
-      text-align: center;
-      margin-bottom: 10px;
+      .pricingModal .modal__content .sticky-bottom span.error-text {
+        /*display: block;*/
+        text-align: center;
+        margin-bottom: 10px;
         font-weight: 600;
-      color: red;
-    }
+        color: red;
+      }
 
   /* Desktop table column behavior */
   .pricingModal table.table-basic td.select-cell {
@@ -69,9 +78,9 @@
     flex-direction: column;
   }
 
-.pricingModal table.table-basic td.version-cell .version-wrap > span {
-  margin-bottom: 5px;
-}
+    .pricingModal table.table-basic td.version-cell .version-wrap > span {
+      margin-bottom: 5px;
+    }
 
     .pricingModal table.table-basic td.version-cell .version-wrap span.disclaimer span {
       font-weight: 600;
@@ -133,6 +142,11 @@
     padding: 11px;
   }
 
+  /* Error Text */
+  .pricingModal .modal__content .sticky-bottom span.error-text {
+    visibility: hidden;
+  }
+
 /* Larger screens */
 @media (min-width: 768px) {
   .pricingModal .modal__content .sticky-top {
@@ -154,6 +168,7 @@
     width: auto !important;
     max-width: none !important;
     max-height: 100% !important;
+    margin-top: 2em;
   }
 }
 
@@ -185,10 +200,10 @@
     padding: 0;
   }
 
-  .pricingModal table tbody.mobile tr.divider td {
-    width: 100%;
-    padding: 10px 11px;
-  }
+    .pricingModal table tbody.mobile tr.divider td {
+      width: 100%;
+      padding: 10px 11px;
+    }
 
   /* Mobile cells */
   .pricingModal table tbody.mobile td {
@@ -233,13 +248,13 @@
         flex-direction: column;
       }
 
-      .pricingModal table tbody.mobile td.details-cell > div .version-wrap > span {
-        margin-bottom: 10px;
-      }
+        .pricingModal table tbody.mobile td.details-cell > div .version-wrap > span {
+          margin-bottom: 10px;
+        }
 
-      .pricingModal table tbody.mobile td.details-cell > div .version-wrap span.disclaimer span {
-        font-weight: 600;
-      }
+        .pricingModal table tbody.mobile td.details-cell > div .version-wrap span.disclaimer span {
+          font-weight: 600;
+        }
 
       /* Labels above values */
       .pricingModal table tbody.mobile td.details-cell [data-label]::before {
@@ -250,15 +265,15 @@
         margin-bottom: 2px;
       }
 
-      .pricingModal table.table-basic td.select-cell input[type="radio"] {
-          margin: 8px 2px 8px 8px;
-      }
+  .pricingModal table.table-basic td.select-cell input[type="radio"] {
+    margin: 8px 2px 8px 8px;
+  }
 
-      .pricingModal table tbody.mobile td.details-cell div.price-row span.price {
-        padding: 5px;
-      }
-  
-      .pricingModal table tbody.mobile td.details-cell div.member-price span.price {
-        font-weight: bold;
-      }
+  .pricingModal table tbody.mobile td.details-cell div.price-row span.price {
+    padding: 5px;
+  }
+
+  .pricingModal table tbody.mobile td.details-cell div.member-price span.price {
+    font-weight: bold;
+  }
 }

@@ -1,4 +1,955 @@
+<style>
+
+    /* -------------------------------------------------------
+   DEFAULT: Desktop/tablet table behavior
+   ------------------------------------------------------- */
+
+/* for development */
+/* .pricingModal .modal {
+  display: block !important;
+} */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal.pricingModal {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Desktop tbody behaves like a real table */
+.pricingModal table tbody.desktop {
+  display: table-row-group;
+}
+
+/* Mobile tbody hidden by default */
+.pricingModal table tbody.mobile {
+  display: none;
+}
+
+/* Modal layout */
+.pricingModal {
+  display: block;
+  overflow-y: hidden;
+}
+
+  .pricingModal .modal__content {
+    padding: 0;
+    overflow: hidden;
+  }
+
+    .pricingModal .modal__content .sticky-top {
+      width: 100%;
+      padding: 20px 58px 5px 20px;
+    }
+
+    .pricingModal .modal__content .scroll-middle {
+      margin-bottom: 100px;
+      overflow-y: auto;
+      max-height: 77vh;
+    }
+
+    .pricingModal .modal__content .sticky-bottom {
+      padding: 10px 20px 20px 20px;
+      position: absolute;
+      width: 100%;
+      background-color: white;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      height: 120px;
+    }
+
+      .pricingModal .modal__content .sticky-bottom span.error-text {
+        /*display: block;*/
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: red;
+      }
+
+  /* Desktop table column behavior */
+  .pricingModal table.table-basic td.select-cell {
+    text-align: center;
+    vertical-align: top;
+  }
+
+  .pricingModal table.table-basic td.version-cell .version-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+    .pricingModal table.table-basic td.version-cell .version-wrap > span {
+      margin-bottom: 5px;
+    }
+
+    .pricingModal table.table-basic td.version-cell .version-wrap span.disclaimer span {
+      font-weight: 600;
+    }
+
+  .pricingModal table.table-basic td.select-cell input[type="radio"] {
+    margin-top: 5px;
+  }
+
+  .pricingModal table.table-basic td.member-price,
+  .pricingModal table.table-basic td:nth-child(3),
+  .pricingModal table.table-basic td:nth-child(4) {
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .pricingModal table.table-basic td.member-price {
+    font-weight: 700;
+  }
+
+  /* Divider row */
+  .pricingModal table.table-basic tbody tr.divider td {
+    background: #155897;
+    color: white;
+    font-weight: 600;
+    border: none;
+  }
+
+  /* Layout resets */
+  .pricingModal .container-fluid,
+  .pricingModal .row,
+  .pricingModal > .modal__content .container-fluid > .row {
+    padding: 0;
+    margin: 0;
+  }
+
+  .pricingModal .sidebar-component__button {
+    display: block;
+    margin: 0 auto 0;
+    text-align: center;
+  }
+
+  .pricingModal table.table-basic {
+    width: 100%;
+  }
+
+  .pricingModal .table-scroll {
+    overflow-y: auto;
+    max-height: 100%;
+  }
+
+  /* Sticky table header */
+  .pricingModal table.table-basic thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #4E5665;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    padding: 11px;
+  }
+
+  /* Error Text */
+  .pricingModal .modal__content .sticky-bottom span.error-text {
+    visibility: hidden;
+  }
+
+/* Larger screens */
+@media (min-width: 768px) {
+  .pricingModal .modal__content .sticky-top {
+    padding: 20px 58px 5px 20px;
+  }
+
+  .pricingModal .modal__content .scroll-middle {
+    margin-bottom: 100px;
+    max-height: 77vh;
+  }
+
+  .pricingModal .modal__content .sticky-bottom {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pricingModal .modal__content {
+    width: auto !important;
+    max-width: none !important;
+    max-height: 100% !important;
+    margin-top: 2em;
+  }
+}
+
+/* -------------------------------------------------------
+   MOBILE: Show mobile tbody + flex layout
+   ------------------------------------------------------- */
+@media (max-width: 500px) {
+
+  /* Swap table bodies */
+  .pricingModal table tbody.desktop {
+    display: none;
+  }
+
+  .pricingModal table tbody.mobile {
+    display: table-row-group;
+  }
+
+  /* Hide table header */
+  .pricingModal table.table-basic thead {
+    display: none;
+  }
+
+  /* Mobile rows become flex */
+  .pricingModal table tbody.mobile tr {
+    display: flex;
+    align-items: flex-start;
+    /*gap: 1rem;*/
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+  }
+
+    .pricingModal table tbody.mobile tr.divider td {
+      width: 100%;
+      padding: 10px 11px;
+    }
+
+  /* Mobile cells */
+  .pricingModal table tbody.mobile td {
+    padding: 0;
+    border: none;
+  }
+
+    /* Left column: radio */
+    .pricingModal table tbody.mobile td.select-cell {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-start;
+      background: #D3D3D3;
+      height: stretch;
+    }
+
+      .pricingModal table tbody.mobile td.select-cell::before {
+        content: none !important;
+      }
+
+    /* Right column: stacked content */
+    .pricingModal table tbody.mobile td.details-cell {
+      flex: 1 1 auto;
+    }
+
+      .pricingModal table tbody.mobile td.details-cell > div {
+        display: flex;
+        margin: 0;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell div span.version-label,
+      .pricingModal table tbody.mobile td.details-cell div span.member-label,
+      .pricingModal table tbody.mobile td.details-cell div span.nonMember-label {
+        padding: 5px;
+        background: #D3D3D3;
+        min-width: 110px;
+      }
+
+      .pricingModal table tbody.mobile td.details-cell > div .version-wrap {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+      }
+
+        .pricingModal table tbody.mobile td.details-cell > div .version-wrap > span {
+          margin-bottom: 10px;
+        }
+
+        .pricingModal table tbody.mobile td.details-cell > div .version-wrap span.disclaimer span {
+          font-weight: 600;
+        }
+
+      /* Labels above values */
+      .pricingModal table tbody.mobile td.details-cell [data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: #555;
+        margin-bottom: 2px;
+      }
+
+  .pricingModal table.table-basic td.select-cell input[type="radio"] {
+    margin: 8px 2px 8px 8px;
+  }
+
+  .pricingModal table tbody.mobile td.details-cell div.price-row span.price {
+    padding: 5px;
+  }
+
+  .pricingModal table tbody.mobile td.details-cell div.member-price span.price {
+    font-weight: bold;
+  }
+}
+
+</style>
+
+
+<!--button to trigger modal, if needed-->
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+<button class="btn btn-primary modal-open-trigger" data-modal-trigger="pricingModal">
+Select a
+version
+</button>
+</div>
+</div>
+</div>
+<!-- Modal for Princing Panel -->
 <section class="modal pricingModal" data-modal="pricingModal">
+<div class="modal__shade d-none d-lg-block"></div>
+<div class="modal__content">
+<div class="sticky-top">
+<div class="modal__content__close"><img src="img/icons/close.svg"></div>
+<h2 class="section-title">Please choose a version of <span>Analyzing Financial Statements</span></h2>
+</div>
+<div class="scroll-middle">
+<div class="table-scroll">
+<form class="needs-validation">
+<table class="table-basic">
+<thead>
+<tr>
+<th></th>
+<th>Versions</th>
+<th>Member</th>
+<th>Non Member</th>
+</tr>
+</thead>
+<!-- <tbody> layout for mobile -->
+<tbody class="mobile">
+<!-- <tr> rendered for each product version for mobile layout-->
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzFXcUAN%26productLoid%3dcdd46c89-90e9-4947-a0bb-163fc3ba506f%26isLMS%3dFalse%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">Printed Textbook</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+<span class="disclaimer">
+<span>Disclaimer:</span><p>For quantities of 5 or more printed copies, please call <strong>1-800-BANKERS</strong> or email <a href="/cdn-cgi/l/email-protection#7605030606190402361714175815191b" class="hyperlink"><span class="__cf_email__" data-cfemail="1665636666796462567774773875797b">[email&#160;protected]</span></a>.</p>
+</span>
+</div>
+</div>
+<!-- Product Price -->
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$105</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$145</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzDegUAF%26productLoid%3d9dbd44f4-7180-4aa2-855a-0c9ddbf29e6f%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">eBook</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>All eBooks sales are final and not shareable. When you order your eBook, you will receive a confirmation email on how to access the book immediately.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+</div>
+</div>
+<!-- Product Price -->
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$105</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$145</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzEKSUA3%26productLoid%3d%26isLMS%3dFalse%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">Instructor&#39;s Manual</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Downloadable File(s) after purchase</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+</div>
+</div>
+<!-- Product Price -->
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$55</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$75</span>
+</div>
+</td>
+</tr>
+<!-- <tr> that acts as divider between grouped sections - Text is optional -->
+<tr class="divider">
+<td colspan="4">Bundle Deals</td> <!-- may not have value here -->
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWiH2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">2026 Feb AFS w Printed Book</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this printed textbook bundled with the February 2026 facilitated training course on this topic.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</div>
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$690</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$770</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gCej2AE%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">2026 February AFS Bundle ebook</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this ebook bundled with the February 2026 facilitated training course on this topic.</p></span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</div>
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$730</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$770</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWtZ2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">2026 Aug AFS w Printed Book</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this ebook bundled with the August 2026 facilitated training course on this topic.</p></span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</div>
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$770</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$770</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWYb2AM%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td class="details-cell" colspan="3">
+<!-- Product Information -->
+<div class="version-block">
+<span class="version-label">Version</span>
+<div class="version-wrap">
+<span class="product-name">2026 August AFS Bundle ebook 1</span><!-- Product Name -->
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this printed textbook bundled with the August 2026 facilitated training course on this topic.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</div>
+<!-- Member Price -->
+<div class="price-row member-price">
+<span class="member-label">Member</span>
+<span class="price">$690</span>
+</div>
+<!-- Non Member Price -->
+<div class="price-row non-member-price">
+<span class="nonMember-label">Non Member</span>
+<span class="price">$770</span>
+</div>
+</td>
+</tr>
+</tbody>
+<!-- <tbody> layout for desktop -->
+<tbody class="desktop">
+<!-- <tr> rendered for each product version for desktop layout-->
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzFXcUAN%26productLoid%3dcdd46c89-90e9-4947-a0bb-163fc3ba506f%26isLMS%3dFalse%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">Printed Textbook</span>
+<!-- Optional: Product Description -->
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+<span class="disclaimer">
+<span>Disclaimer:</span><p>For quantities of 5 or more printed copies, please call <strong>1-800-BANKERS</strong> or email <a href="/cdn-cgi/l/email-protection#0c7f797c7c637e784c6d6e6d226f6361" class="hyperlink"><span class="__cf_email__" data-cfemail="c0b3b5b0b0afb2b480a1a2a1eea3afad">[email&#160;protected]</span></a>.</p>
+</span>
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$105</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$145</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzDegUAF%26productLoid%3d9dbd44f4-7180-4aa2-855a-0c9ddbf29e6f%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">eBook</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>All eBooks sales are final and not shareable. When you order your eBook, you will receive a confirmation email on how to access the book immediately.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$105</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$145</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal="Clicked to buy a Book"
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzEKSUA3%26productLoid%3d%26isLMS%3dFalse%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">Instructor&#39;s Manual</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Downloadable File(s) after purchase</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+<span class="disclaimer">
+<span>Disclaimer:</span><p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</span>
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$55</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$75</td>
+</tr>
+<!-- <tr> that acts as divider between grouped sections - Text is optional -->
+<tr class="divider">
+<td colspan="4">Bundle Deals</td> <!-- may not have value here -->
+</tr>
+<!-- <tr> rendered for each bundle version for desktop layout-->
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWiH2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">2026 Feb AFS w Printed Book</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this printed textbook bundled with the February 2026 facilitated training course on this topic.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$690</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$770</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gCej2AE%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">2026 February AFS Bundle ebook</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this ebook bundled with the February 2026 facilitated training course on this topic.</p></span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$730</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$770</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWtZ2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">2026 Aug AFS w Printed Book</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this ebook bundled with the August 2026 facilitated training course on this topic.</p></span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$770</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$770</td>
+</tr>
+<tr>
+<td class="select-cell">
+<input type="radio" name="productVersion" value="productValue"
+data-goal=""
+data-href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWYb2AM%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d" />
+</td>
+<td data-label="Version" class="version-cell">
+<div class="version-wrap">
+<!-- Product Name -->
+<span class="product-name">2026 August AFS Bundle ebook 1</span>
+<!-- Optional: Product Description -->
+<span class="desc">
+<p>Buy this printed textbook bundled with the August 2026 facilitated training course on this topic.</p>
+</span>
+<!-- Optional: Product Disclaimer -->
+</div>
+</td>
+<!-- Product Price -->
+<!-- Member Price -->
+<td data-label="Member" class="member-price">$690</td>
+<!-- Non Member Price -->
+<td data-label="Non Member">$770</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<div class="sticky-bottom">
+<!-- Form Validation error text -->
+<span class="error-text" data-error="">[Error Text]</span>
+<!-- I believe this section is in ProductPriceDetail.cshtml -->
+<a class="sidebar-component__button btn btn-primary" data-goal="" href="">
+<span>
+Sign In to Add to Cart </span>
+</a>
+</div>
+</div>
+</section>
+<div>
+<div class="sidebar-component js-pricing-component sidebar-component--pricing">
+<h2 class="sidebar-component__title">Purchase</h2>
+<label id="dropdown-label-aalupio2eopk5" for="selectf4197e2b276844478ade1ae5b6b6c78d">Version</label>
+<select name="selectf4197e2b276844478ade1ae5b6b6c78d"
+id="selectf4197e2b276844478ade1ae5b6b6c78d"
+class="js-pricing-component-dropdown sidebar-component__dropdown form-control">
+<option value="js-PrintedTextbook">Printed Textbook</option>
+<option value="js-2026FebruaryAFSBundleprint">2026 Feb AFS w Printed Book</option>
+<option value="js-2026FebruaryAFSBundleebook">2026 February AFS Bundle ebook</option>
+<option value="js-2026AugustAFSBundlePrint">2026 Aug AFS w Printed Book</option>
+<option value="js-2026AugustAFSBundleebook">2026 August AFS Bundle ebook 1</option>
+<option value="js-eBook">eBook</option>
+<option value="js-InstructorsManual">Instructor&#39;s Manual</option>
+</select>
+<section class="js-pricing-items" tabindex="-1" aria-live="polite" data-products="[{&quot;ListPrice&quot;:145.00,&quot;MemberPrice&quot;:105.00,&quot;ProductId&quot;:&quot;a1B4P00000RzFXcUAN&quot;,&quot;Loid&quot;:&quot;cdd46c89-90e9-4947-a0bb-163fc3ba506f&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:27.586206896551724137931034480,&quot;IsLMS&quot;:false,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - Printed Book&quot;,&quot;Name&quot;:&quot;Printed Textbook&quot;,&quot;Fulfillment&quot;:&quot;Warehouse&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Book&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;Printed Textbook&quot;,&quot;DisplayPrice&quot;:145.00,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:770.00,&quot;MemberPrice&quot;:690.00,&quot;ProductId&quot;:&quot;a1BWC000002gWiH2AU&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;&quot;,&quot;Discount&quot;:10.38961038961038961038961039,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements with Printed Book&quot;,&quot;Name&quot;:&quot;2026 Feb AFS w Printed Book&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Bundle&quot;,&quot;WebProductCategory&quot;:&quot;Bundle&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;2026 Feb AFS w Printed Book&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 February AFS Bundle print&quot;,&quot;DisplayPrice&quot;:770.00,&quot;BundledProducts&quot;:[{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1BVs00000Fvf4EMAR&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Facilitated Training&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:true,&quot;EventNimblePrimaryKey&quot;:&quot;a0lVs000002cUvBIAU&quot;,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements&quot;,&quot;Name&quot;:&quot;February 9 - May 29, 2026&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Registration&quot;,&quot;WebProductCategory&quot;:&quot;Facilitated Training&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Facilitated Online&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 AFS February&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1B4P00000RzFXcUAN&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:false,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - Printed Book&quot;,&quot;Name&quot;:&quot;Printed Textbook&quot;,&quot;Fulfillment&quot;:&quot;Warehouse&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Book&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;Printed Textbook&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null}]},{&quot;ListPrice&quot;:770.00,&quot;MemberPrice&quot;:730.00,&quot;ProductId&quot;:&quot;a1BWC000002gCej2AE&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;&quot;,&quot;Discount&quot;:5.19480519480519480519480519,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements with eBook&quot;,&quot;Name&quot;:&quot;2026 February AFS Bundle ebook&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Bundle&quot;,&quot;WebProductCategory&quot;:&quot;Bundle&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;2026 February AFS Bundle ebook&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 February AFS Bundle ebook&quot;,&quot;DisplayPrice&quot;:770.00,&quot;BundledProducts&quot;:[{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1BVs00000Fvf4EMAR&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Facilitated Training&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:true,&quot;EventNimblePrimaryKey&quot;:&quot;a0lVs000002cUvBIAU&quot;,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements&quot;,&quot;Name&quot;:&quot;February 9 - May 29, 2026&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Registration&quot;,&quot;WebProductCategory&quot;:&quot;Facilitated Training&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Facilitated Online&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 AFS February&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1B4P00000RzDegUAF&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - eBook&quot;,&quot;Name&quot;:&quot;eBook&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;Commercial Lending&quot;,&quot;Variant&quot;:&quot;eBook&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;eBook&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null}]},{&quot;ListPrice&quot;:770.00,&quot;MemberPrice&quot;:770.00,&quot;ProductId&quot;:&quot;a1BWC000002gWtZ2AU&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements with Printed Book&quot;,&quot;Name&quot;:&quot;2026 Aug AFS w Printed Book&quot;,&quot;Fulfillment&quot;:&quot;Inhouse&quot;,&quot;Brand&quot;:&quot;Bundle&quot;,&quot;WebProductCategory&quot;:&quot;Bundle&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;2026 Aug AFS w Printed Book&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 August AFS Bundle Print&quot;,&quot;DisplayPrice&quot;:770.00,&quot;BundledProducts&quot;:[{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1BVs00000FvhdtMAB&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Facilitated Training&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:true,&quot;EventNimblePrimaryKey&quot;:&quot;a0lVs000002cTB8IAM&quot;,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements&quot;,&quot;Name&quot;:&quot;August 3 - November 20, 2026&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Registration&quot;,&quot;WebProductCategory&quot;:&quot;Facilitated Training&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Facilitated Online&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 AFS August&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1B4P00000RzFXcUAN&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:false,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - Printed Book&quot;,&quot;Name&quot;:&quot;Printed Textbook&quot;,&quot;Fulfillment&quot;:&quot;Warehouse&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Book&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;Printed Textbook&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null}]},{&quot;ListPrice&quot;:770.00,&quot;MemberPrice&quot;:690.00,&quot;ProductId&quot;:&quot;a1BWC000002gWYb2AM&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;&quot;,&quot;Discount&quot;:10.38961038961038961038961039,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements August with eBook&quot;,&quot;Name&quot;:&quot;2026 August AFS Bundle ebook 1&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Bundle&quot;,&quot;WebProductCategory&quot;:&quot;Bundle&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;2026 August AFS Bundle ebook 1&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 August AFS Bundle ebook&quot;,&quot;DisplayPrice&quot;:770.00,&quot;BundledProducts&quot;:[{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1B4P00000RzDegUAF&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - eBook&quot;,&quot;Name&quot;:&quot;eBook&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;Commercial Lending&quot;,&quot;Variant&quot;:&quot;eBook&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;eBook&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:0.0,&quot;MemberPrice&quot;:0.0,&quot;ProductId&quot;:&quot;a1BVs00000FvhdtMAB&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Facilitated Training&quot;,&quot;Discount&quot;:0.0,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:true,&quot;EventNimblePrimaryKey&quot;:&quot;a0lVs000002cTB8IAM&quot;,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:false,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements&quot;,&quot;Name&quot;:&quot;August 3 - November 20, 2026&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Registration&quot;,&quot;WebProductCategory&quot;:&quot;Facilitated Training&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;Facilitated Online&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;2026 AFS August&quot;,&quot;DisplayPrice&quot;:0.0,&quot;BundledProducts&quot;:null}]},{&quot;ListPrice&quot;:145.00,&quot;MemberPrice&quot;:105.00,&quot;ProductId&quot;:&quot;a1B4P00000RzDegUAF&quot;,&quot;Loid&quot;:&quot;9dbd44f4-7180-4aa2-855a-0c9ddbf29e6f&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:27.586206896551724137931034480,&quot;IsLMS&quot;:true,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements, 8th Edition - eBook&quot;,&quot;Name&quot;:&quot;eBook&quot;,&quot;Fulfillment&quot;:&quot;LMS&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;Commercial Lending&quot;,&quot;Variant&quot;:&quot;eBook&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;eBook&quot;,&quot;DisplayPrice&quot;:145.00,&quot;BundledProducts&quot;:null},{&quot;ListPrice&quot;:75.00,&quot;MemberPrice&quot;:55.00,&quot;ProductId&quot;:&quot;a1B4P00000RzEKSUA3&quot;,&quot;Loid&quot;:&quot;&quot;,&quot;Goal&quot;:&quot;Clicked to buy a Book&quot;,&quot;Discount&quot;:26.666666666666666666666666670,&quot;IsLMS&quot;:false,&quot;IsRegistrationProduct&quot;:false,&quot;EventNimblePrimaryKey&quot;:null,&quot;RegistrationUrl&quot;:null,&quot;ShowListPrice&quot;:true,&quot;ShowMemberPrice&quot;:true,&quot;IsMember&quot;:false,&quot;ExternalProviderName&quot;:&quot;Analyzing Financial Statements Instructor Manual 8th edition&quot;,&quot;Name&quot;:&quot;Instructor&#39;s Manual&quot;,&quot;Fulfillment&quot;:&quot;Inhouse&quot;,&quot;Brand&quot;:&quot;Merchandise&quot;,&quot;WebProductCategory&quot;:&quot;Book&quot;,&quot;Category&quot;:&quot;&quot;,&quot;Variant&quot;:&quot;pdf&quot;,&quot;ProductType&quot;:&quot;Dynamic&quot;,&quot;AgnosticPrice&quot;:0.0,&quot;HasAgnosticPrice&quot;:false,&quot;SitecoreItemName&quot;:&quot;Instructors Manual&quot;,&quot;DisplayPrice&quot;:75.00,&quot;BundledProducts&quot;:null}]">
+<div class="js-PrintedTextbook js-pricing-item pricing-component__item" id="Printed Textbook">
+<p class="sidebar-component__price-item">ABA Member Price: $105</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $145
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 28% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal="Clicked to buy a Book"
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzFXcUAN%26productLoid%3dcdd46c89-90e9-4947-a0bb-163fc3ba506f%26isLMS%3dFalse%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+<div class="sidebar-component__details">
+<p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</div>
+<div class="sidebar-component__details">
+<p>For quantities of 5 or more printed copies, please call <strong>1-800-BANKERS</strong> or email <a href="/cdn-cgi/l/email-protection#2b585e5b5b44595f6b4a494a05484446" class="hyperlink"><span class="__cf_email__" data-cfemail="3e4d4b4e4e514c4a7e5f5c5f105d5153">[email&#160;protected]</span></a>.</p>
+</div>
+</div>
+<div class="js-2026FebruaryAFSBundleprint js-pricing-item pricing-component__item" id="2026 February AFS Bundle print">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>Buy this printed textbook bundled with the February 2026 facilitated training course on this topic.</p>
+</div>
+<p class="sidebar-component__price-item">ABA Member Price: $690</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $770
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 10% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal=""
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWiH2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+</div>
+<div class="js-2026FebruaryAFSBundleebook js-pricing-item pricing-component__item" id="2026 February AFS Bundle ebook">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>Buy this ebook bundled with the February 2026 facilitated training course on this topic.</p></div>
+<p class="sidebar-component__price-item">ABA Member Price: $730</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $770
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 5% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal=""
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gCej2AE%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+</div>
+<div class="js-2026AugustAFSBundlePrint js-pricing-item pricing-component__item" id="2026 August AFS Bundle Print">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>Buy this ebook bundled with the August 2026 facilitated training course on this topic.</p></div>
+<p class="sidebar-component__price-item">ABA Member Price: $770</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $770
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal=""
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWtZ2AU%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+</div>
+<div class="js-2026AugustAFSBundleebook js-pricing-item pricing-component__item" id="2026 August AFS Bundle ebook">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>Buy this printed textbook bundled with the August 2026 facilitated training course on this topic.</p>
+</div>
+<p class="sidebar-component__price-item">ABA Member Price: $690</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $770
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 10% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal=""
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1BWC000002gWYb2AM%26productLoid%3d%26isLMS%3dTrue%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+</div>
+<div class="js-eBook js-pricing-item pricing-component__item" id="eBook">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>All eBooks sales are final and not shareable. When you order your eBook, you will receive a confirmation email on how to access the book immediately.</p>
+</div>
+<p class="sidebar-component__price-item">ABA Member Price: $105</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $145
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 28% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal="Clicked to buy a Book"
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzDegUAF%26productLoid%3d9dbd44f4-7180-4aa2-855a-0c9ddbf29e6f%26isLMS%3dTrue%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+<div class="sidebar-component__details">
+<p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</div>
+</div>
+<div class="js-InstructorsManual js-pricing-item pricing-component__item" id="Instructors Manual">
+<div class="sidebar-component__details sidebar-component__details--italic">
+<p>Downloadable File(s) after purchase</p>
+</div>
+<p class="sidebar-component__price-item">ABA Member Price: $55</p>
+<p class="sidebar-component__price-item ">
+Non-Member Price: $75
+</p>
+<p class="sidebar-component__price-item sidebar-component__price-item--red">
+Save 27% as a member
+</p>
+<a class="sidebar-component__button btn btn-primary js-coveo-cart-cookie"
+data-goal="Clicked to buy a Book"
+href="/login?returnUrl=/api/sitecore/Product/AddProductToCartAndRedirect%3fproductId%3da1B4P00000RzEKSUA3%26productLoid%3d%26isLMS%3dFalse%26eventPrimaryKey%3d">
+<span>
+Sign In to Add to Cart
+</span>
+</a>
+<div class="sidebar-component__details">
+<p>Before completing this purchase, make sure to review <a class="hyperlink" href="/refund-policy" target="_blank">ABA’s Refund Policy</a>.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+<div class="col-12 col-lg-8">
+</div>
+</div>
+</div>
+</section>
+<section class="container-fluid">
+<div class="row">
+<div class="col-12 col-md-10 offset-md-1 col-lg-12 offset-lg-0">
+</div>
+</div>
+</section>
+
+
+<script>
+
+    (function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.querySelector('.modal.pricingModal');
+
+    if (!modal) return;
+
+    function updateScrollLock() {
+      const isVisible =
+        window.getComputedStyle(modal).display === 'block';
+
+      document.body.classList.toggle('modal-open', isVisible);
+    }
+
+    // Initial check
+    updateScrollLock();
+
+    // Observe modal changes
+    const observer = new MutationObserver(updateScrollLock);
+    observer.observe(modal, {
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+  });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- <section class="modal pricingModal" data-modal="pricingModal">
     <div class="modal__shade d-none d-lg-block"></div>
     <div class="modal__content">
         <div class="sticky-top">
@@ -243,8 +1194,6 @@
         </div>
         <div class="sticky-bottom">
             <span class="error-text">Please choose a product to add to your cart.</span>
-            <!-- TODO -->
-            <!-- Should this be a button instead for accesibility ? -->
             <a class="sidebar-component__button btn btn-primary"
                 data-goal=""
                 href="">
@@ -265,4 +1214,4 @@
                 version</button>
         </div>
     </div>
-</div>
+</div> -->
